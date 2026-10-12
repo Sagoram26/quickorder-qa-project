@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user
 from ..extensions import db
-from ..models import User, Address
+from ..models import User
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -23,8 +23,6 @@ def register():
         user = User(name=name, email=email)
         user.set_password(password)
         db.session.add(user)
-        db.session.flush()
-        db.session.add(Address(user_id=user.id, label="Domicile", street="", postal_code="", city="", is_default=True))
         db.session.commit()
         login_user(user)
         return redirect(url_for("main.index"))
@@ -41,12 +39,15 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user and user.check_password(password):
             login_user(user, remember=request.form.get("remember") == "1")
-            return redirect(request.args.get("next") or url_for("main.index"))
+            nxt = request.args.get("next", "")
+            if not nxt.startswith("/") or nxt.startswith(("//", "/\\")):
+                nxt = url_for("main.index")
+            return redirect(nxt)
         flash("Email ou mot de passe incorrect.", "danger")
     return render_template("login.html")
 
 
-@auth_bp.get("/logout")
+@auth_bp.post("/logout")
 def logout():
     logout_user()
     return redirect(url_for("main.index"))

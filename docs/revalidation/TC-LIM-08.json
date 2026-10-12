@@ -1,0 +1,21 @@
+{
+ "id": "TC-LIM-08",
+ "status": "Pass",
+ "obtained": "Recherche 'japonaise' (présent dans la description de Tokyo Bowl 'Cuisine japonaise et bowls frais'): UI Tokyo Bowl trouvé=True, API count=1.",
+ "trace": [
+  {
+   "req": "GET /?q=japonaise",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/?q=japonaise",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Connexion Créer un compte Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livraison moins chère Plus "
+  },
+  {
+   "req": "GET /api/restaurants?q=japonaise",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/api/restaurants?q=japonaise",
+   "body": "{\"count\":1,\"items\":[{\"address\":\"8 avenue de l'Op\\u00e9ra, Paris\",\"category\":\"Japonais\",\"delivery_fee\":3.49,\"delivery_time_min\":35,\"description\":\"Cuisine japonaise et bowls frais.\",\"id\":2,\"is_open\":true,\"minimum_order\":15.0,\"name\":\"Tokyo Bowl\",\"promo_text\":\"Livraison gratuite d\\u00e8s 30 \\u20ac avec TOKYO30\",\"rating\":4.8}]}\n"
+  }
+ ]
+}

@@ -1,0 +1,56 @@
+{
+ "id": "TC-NOM-05",
+ "status": "Pass",
+ "obtained": "Commande #2: sous-total 23.8, remise 2.38, total 24.41, statut confirmed.",
+ "trace": [
+  {
+   "req": "POST /login",
+   "data": {
+    "email": "alice@example.com",
+    "password": "Password123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livrais"
+  },
+  {
+   "req": "POST /cart/add/1",
+   "data": {
+    "quantity": 2
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Classic Burger ajouté au panier. Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japo"
+  },
+  {
+   "req": "POST /checkout",
+   "data": {
+    "confirm": "1",
+    "address_id": 1,
+    "payment_method": "card",
+    "coupon": "WELCOME10",
+    "customer_note": "QA"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/orders/2",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Commande confirmée ! ← Mes commandes Commande #2 confirmed Burger Factory 12/10/2026 12:12 Classic Burger × 2 23.80 € Sous-total 23.80 € Livraison 2.99 € Réduction - 2.38 € Total 24.41 € Paiement paid · card Li"
+  },
+  {
+   "req": "POST /login",
+   "data": {
+    "email": "alice@example.com",
+    "password": "Password123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livrais"
+  },
+  {
+   "req": "GET /api/orders/2",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/api/orders/2",
+   "body": "{\"cash_received\":null,\"change_due\":null,\"created_at\":\"2026-10-12T12:12:11.095116\",\"delivery_fee\":2.99,\"discount\":2.38,\"id\":2,\"items\":[{\"line_total\":23.8,\"product_id\":1,\"product_name\":\"Classic Burger\",\"quantity\":2,\"unit_price\":11.9}],\"payment_method\":\"card\",\"payment_status\":\"paid\",\"restaurant_id\":1,\"status\":\"confirmed\",\"subtotal\":23.8,\"total\":24.41}\n"
+  }
+ ]
+}

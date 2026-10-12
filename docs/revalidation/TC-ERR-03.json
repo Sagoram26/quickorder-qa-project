@@ -1,0 +1,17 @@
+{
+ "id": "TC-ERR-03",
+ "status": "Pass",
+ "obtained": "EXPIRED10 → HTTP 404 {'error': 'Coupon invalide ou expiré.', 'valid': False}",
+ "trace": [
+  {
+   "req": "POST /api/coupons/validate",
+   "data": {
+    "code": "EXPIRED10",
+    "subtotal": 50
+   },
+   "status": 404,
+   "final_url": "http://127.0.0.1:5001/api/coupons/validate",
+   "body": "{\"error\":\"Coupon invalide ou expir\\u00e9.\",\"valid\":false}\n"
+  }
+ ]
+}

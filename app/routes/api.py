@@ -2,10 +2,12 @@ from datetime import datetime
 from decimal import Decimal, InvalidOperation
 from functools import wraps
 from uuid import uuid4
+from sqlalchemy import or_
 from flask import Blueprint, jsonify, request, current_app, g
 from flask_login import current_user
 from ..models import Restaurant, Product, Order, OrderItem, Coupon, Favorite, User, Address
 from ..extensions import db
+from .orders import order_problem, usable_addresses
 
 api_bp = Blueprint("api", __name__)
 
@@ -24,11 +26,17 @@ def api_key_required(fn):
     return wrapper
 
 
+def session_required(fn):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        if not current_user.is_authenticated:
+            return jsonify({"error": "authentication required (login session)"}), 401
+        return fn(*args, **kwargs)
+    return wrapper
+
+
 def api_customer():
-    if current_user.is_authenticated:
-        return current_user
-    user = User.query.filter_by(email="alice@example.com").first()
-    return user
+    return current_user
 
 
 def restaurant_json(r):
@@ -69,8 +77,7 @@ def restaurants():
     min_rating = request.args.get("min_rating", type=float)
     query = Restaurant.query
     if q:
-        # INTENTIONAL QA BUG: API search ignores restaurant description.
-        query = query.filter(Restaurant.name.ilike(f"%{q}%"))
+        query = query.filter(or_(Restaurant.name.ilike(f"%{q}%"), Restaurant.description.ilike(f"%{q}%")))
     if category:
         query = query.filter_by(category=category)
     if min_rating is not None:
@@ -131,6 +138,7 @@ def validate_coupon():
 
 @api_bp.post("/orders")
 @api_key_required
+@session_required
 def create_order_api():
     payload = request.get_json(silent=True) or {}
     items = payload.get("items")
@@ -156,7 +164,6 @@ def create_order_api():
         product = by_id[item["product_id"]]
         if not product.available:
             return jsonify({"error": f"product {product.id} is unavailable"}), 409
-        # INTENTIONAL QA BUG: API checks availability but forgets the stock quantity.
         line_total = product.price * quantity
         subtotal += line_total
         normalized.append((product, quantity, line_total))
@@ -174,12 +181,13 @@ def create_order_api():
     payment_method = payload.get("payment_method", "card")
     if payment_method not in {"card", "paypal", "cash"}:
         return jsonify({"error": "invalid payment_method"}), 400
-    address = Address.query.filter_by(user_id=api_customer().id).order_by(Address.is_default.desc(), Address.id).first()
+    address = usable_addresses(api_customer().id).first()
     if not address:
         return jsonify({"error": "no delivery address"}), 400
-    # INTENTIONAL QA BUGS: no restaurant-open check, no minimum-order check,
-    # no cash amount validation and no stock validation.
     cash_received = payload.get("cash_received") if payment_method == "cash" else None
+    problem = order_problem(restaurant, [(p, q) for p, q, _ in normalized], subtotal, total, payment_method, cash_received)
+    if problem:
+        return jsonify({"error": problem}), 409
     try:
         cash_received_decimal = Decimal(str(cash_received)) if cash_received is not None else None
     except InvalidOperation:
@@ -196,24 +204,13 @@ def create_order_api():
         db.session.add(OrderItem(order_id=order.id, product_id=product.id, product_name=product.name,
                                  unit_price=product.price, quantity=quantity, line_total=line_total))
         product.stock -= quantity
-    # INTENTIONAL QA BUG: PayPal duplicates the order in the API too.
-    if payment_method == "paypal":
-        duplicate = Order(user_id=api_customer().id, address_id=address.id, restaurant_id=restaurant.id, status="confirmed",
-                          subtotal=subtotal, delivery_fee=delivery_fee, discount=discount, total=total,
-                          payment_status="paid", payment_method=payment_method,
-                          payment_reference=f"API-{uuid4().hex[:10].upper()}")
-        db.session.add(duplicate)
-        db.session.flush()
-        for product, quantity, line_total in normalized:
-            db.session.add(OrderItem(order_id=duplicate.id, product_id=product.id, product_name=product.name,
-                                     unit_price=product.price, quantity=quantity, line_total=line_total))
-            product.stock -= quantity
     db.session.commit()
     return jsonify(order_json(order)), 201
 
 
 @api_bp.get("/orders")
 @api_key_required
+@session_required
 def list_orders():
     status = request.args.get("status", "").strip()
     query = Order.query.filter_by(user_id=api_customer().id)
@@ -224,6 +221,7 @@ def list_orders():
 
 @api_bp.get("/orders/<int:order_id>")
 @api_key_required
+@session_required
 def get_order(order_id):
     order = Order.query.get_or_404(order_id)
     if order.user_id != api_customer().id and api_customer().role != "admin":
@@ -233,6 +231,7 @@ def get_order(order_id):
 
 @api_bp.post("/orders/<int:order_id>/cancel")
 @api_key_required
+@session_required
 def cancel_order(order_id):
     order = Order.query.get_or_404(order_id)
     if order.user_id != api_customer().id and api_customer().role != "admin":
@@ -246,6 +245,7 @@ def cancel_order(order_id):
 
 @api_bp.get("/favorites")
 @api_key_required
+@session_required
 def favorites():
     favorites = Favorite.query.filter_by(user_id=api_customer().id).all()
     return jsonify({"items": [restaurant_json(f.restaurant) for f in favorites]})

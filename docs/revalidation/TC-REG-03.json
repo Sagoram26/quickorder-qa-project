@@ -1,0 +1,39 @@
+{
+ "id": "TC-REG-03",
+ "status": "Pass",
+ "obtained": "Burger Factory minimum 20.00 €, panier 3.50 € → commande #None confirmée (total None €).",
+ "trace": [
+  {
+   "req": "POST /login",
+   "data": {
+    "email": "alice@example.com",
+    "password": "Password123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livrais"
+  },
+  {
+   "req": "POST /cart/add/3",
+   "data": {
+    "quantity": 1
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Frites maison ajouté au panier. Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japon"
+  },
+  {
+   "req": "POST /checkout",
+   "data": {
+    "confirm": "1",
+    "address_id": 1,
+    "payment_method": "card",
+    "coupon": "",
+    "customer_note": "QA"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/checkout",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Minimum de commande de 20.00 € non atteint. Finaliser la commande Livraison Adresse Domicile — 10 rue de Paris, 75001 Paris Note de livraison Paiement Coupon Appliquer Mode de paiement Carte bancaire — succès P"
+  }
+ ]
+}

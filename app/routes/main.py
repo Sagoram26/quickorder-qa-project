@@ -1,3 +1,4 @@
+from sqlalchemy import or_
 from flask import Blueprint, render_template, request
 from flask_login import current_user
 from ..models import Restaurant, Product, Favorite
@@ -13,16 +14,13 @@ def index():
     max_delivery = request.args.get("max_delivery", type=float)
     sort = request.args.get("sort", "rating")
 
-    # INTENTIONAL QA BUG: the delivery filter is reversed. A maximum of 2.50 €
-    # incorrectly returns restaurants whose delivery fee is >= 2.50 €.
     query = Restaurant.query
     if q:
-        # INTENTIONAL QA BUG: search only checks the restaurant name, not its description.
-        query = query.filter(Restaurant.name.ilike(f"%{q}%"))
+        query = query.filter(or_(Restaurant.name.ilike(f"%{q}%"), Restaurant.description.ilike(f"%{q}%")))
     if category:
         query = query.filter_by(category=category)
     if max_delivery is not None:
-        query = query.filter(Restaurant.delivery_fee >= max_delivery)
+        query = query.filter(Restaurant.delivery_fee <= max_delivery)
     if sort == "price":
         query = query.order_by(Restaurant.delivery_fee.asc())
     elif sort == "time":
@@ -46,7 +44,7 @@ def restaurant(restaurant_id):
     restaurant = Restaurant.query.get_or_404(restaurant_id)
     category = request.args.get("category", "").strip()
     q = request.args.get("q", "").strip()
-    # INTENTIONAL QA BUG: products with stock=0 remain visible as if they can be ordered.
+    # stock=0 reste visible mais non commandable (bouton désactivé dans le template).
     products_query = Product.query.filter_by(restaurant_id=restaurant.id, available=True)
     if category:
         products_query = products_query.filter_by(category=category)

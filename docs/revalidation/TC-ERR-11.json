@@ -1,0 +1,31 @@
+{
+ "id": "TC-ERR-11",
+ "status": "Pass",
+ "obtained": "/admin/ anonyme → HTTP 302; client alice → page d'accueil + 'Accès réservé aux administrateurs.'",
+ "trace": [
+  {
+   "req": "GET /admin/",
+   "data": null,
+   "status": 302,
+   "final_url": "http://127.0.0.1:5001/admin/",
+   "body": " Redirecting... Redirecting... You should be redirected automatically to the target URL: / . If not, click the link. "
+  },
+  {
+   "req": "POST /login",
+   "data": {
+    "email": "alice@example.com",
+    "password": "Password123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livrais"
+  },
+  {
+   "req": "GET /admin/",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Accès réservé aux administrateurs. Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Ja"
+  }
+ ]
+}

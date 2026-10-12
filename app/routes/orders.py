@@ -21,8 +21,31 @@ def calculate_coupon(coupon_code, subtotal):
     discount = (subtotal * coupon.discount_percent / 100).quantize(Decimal("0.01"))
     if coupon.max_discount is not None:
         discount = min(discount, coupon.max_discount)
-    # INTENTIONAL QA BUG: the ATLAs promotion is advertised as 15% but the stored coupon is 10%.
     return coupon, discount, None
+
+
+def usable_addresses(user_id):
+    return Address.query.filter(Address.user_id == user_id, Address.street != "", Address.postal_code != "",
+                                Address.city != "").order_by(Address.is_default.desc(), Address.id)
+
+
+def order_problem(restaurant, lines, subtotal, total, payment, cash_received=None):
+    """Retourne un message d'erreur si la commande est refusée, sinon None (UI et API)."""
+    if not restaurant.is_open:
+        return "Ce restaurant est fermé."
+    for product, quantity in lines:
+        if quantity > product.stock:
+            return f"Stock insuffisant pour {product.name}."
+    if subtotal < restaurant.minimum_order:
+        return f"Minimum de commande de {restaurant.minimum_order:.2f} € non atteint."
+    if payment == "cash":
+        try:
+            received = Decimal(str(cash_received if cash_received not in (None, "") else "0"))
+        except (InvalidOperation, ValueError):
+            received = Decimal("0")
+        if received < total:
+            return "Montant en espèces inférieur au total."
+    return None
 
 
 def build_order(*, user_id, address, restaurant, subtotal, delivery_fee, discount, total,
@@ -36,7 +59,6 @@ def build_order(*, user_id, address, restaurant, subtotal, delivery_fee, discoun
             cash_received_decimal = Decimal(str(cash_received if cash_received not in (None, "") else "0"))
         except (InvalidOperation, ValueError):
             cash_received_decimal = Decimal("0")
-        # INTENTIONAL QA BUG: any cash amount is accepted, even if it is lower than the total.
         change_due = (cash_received_decimal - total).quantize(Decimal("0.01"))
     order = Order(
         user_id=user_id,
@@ -65,7 +87,6 @@ def add_order_items(order, items):
         db.session.add(OrderItem(order_id=order.id, product_id=product.id, product_name=product.name,
                                  unit_price=product.price, quantity=item["quantity"],
                                  line_total=item["line_total"]))
-        # INTENTIONAL QA BUG: stock is reduced without checking whether it is sufficient.
         product.stock -= item["quantity"]
 
 
@@ -77,12 +98,10 @@ def checkout():
         flash("Votre panier est vide.", "warning")
         return redirect(url_for("shop.cart"))
     restaurant = items[0]["product"].restaurant
-    addresses = Address.query.filter_by(user_id=current_user.id).order_by(Address.is_default.desc(), Address.id).all()
+    addresses = usable_addresses(current_user.id).all()
     if not addresses:
-        address = Address(user_id=current_user.id, label="Domicile", street="10 rue de Paris", postal_code="75001", city="Paris", is_default=True)
-        db.session.add(address)
-        db.session.commit()
-        addresses = [address]
+        flash("Ajoutez une adresse de livraison complète pour commander.", "warning")
+        return redirect(url_for("profile.profile"))
     coupon_code = request.form.get("coupon", "").strip().upper() if request.method == "POST" else request.args.get("coupon", "").strip().upper()
     coupon, discount, coupon_error = calculate_coupon(coupon_code, subtotal)
     if coupon_error:
@@ -92,7 +111,7 @@ def checkout():
 
     if request.method == "POST" and request.form.get("confirm") == "1":
         address_id = request.form.get("address_id", type=int)
-        address = Address.query.filter_by(id=address_id, user_id=current_user.id).first()
+        address = usable_addresses(current_user.id).filter(Address.id == address_id).first()
         payment = request.form.get("payment_method", "card")
         if not address:
             flash("Adresse de livraison invalide.", "danger")
@@ -101,27 +120,17 @@ def checkout():
             flash("Mode de paiement invalide.", "danger")
             return redirect(url_for("orders.checkout"))
 
-        # INTENTIONAL QA BUGS:
-        # 1) restaurant.is_open is not checked here;
-        # 2) minimum_order is displayed but never enforced;
-        # 3) stock is not revalidated before payment;
-        # 4) cash amount is accepted even when insufficient;
-        # 5) PayPal creates two identical orders.
         cash_received = request.form.get("cash_received") if payment == "cash" else None
+        problem = order_problem(restaurant, [(i["product"], i["quantity"]) for i in items], subtotal, total, payment, cash_received)
+        if problem:
+            flash(problem, "danger")
+            return redirect(url_for("orders.checkout"))
         order, payment_ok = build_order(user_id=current_user.id, address=address, restaurant=restaurant,
                                         subtotal=subtotal, delivery_fee=delivery_fee, discount=discount,
                                         total=total, payment=payment,
                                         customer_note=request.form.get("customer_note", "").strip(),
                                         cash_received=cash_received)
         add_order_items(order, items)
-
-        if payment == "paypal":
-            duplicate, _ = build_order(user_id=current_user.id, address=address, restaurant=restaurant,
-                                       subtotal=subtotal, delivery_fee=delivery_fee, discount=discount,
-                                       total=total, payment=payment,
-                                       customer_note=request.form.get("customer_note", "").strip(),
-                                       cash_received=None)
-            add_order_items(duplicate, items)
 
         db.session.commit()
         clear_cart()

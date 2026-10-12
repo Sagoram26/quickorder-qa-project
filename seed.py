@@ -79,13 +79,12 @@ with app.app_context():
         Product(restaurant_id=closed.id, name="Sushi épuisé", description="Produit fermé et hors stock.", category="Sushi", price=Decimal("12.00"), calories=500, is_vegetarian=False, stock=0, available=True),
     ])
 
-    # Promotions deliberately contain one obvious mismatch: ATLAS15 advertises 15%, but stores 10%.
     db.session.add_all([
         Coupon(code="WELCOME10", discount_percent=Decimal("10"), min_order_amount=Decimal("20"), max_discount=Decimal("8"), active=True, expires_at=datetime.utcnow() + timedelta(days=90)),
         Coupon(code="SAVE20", discount_percent=Decimal("20"), min_order_amount=Decimal("35"), max_discount=Decimal("12"), active=True, expires_at=datetime.utcnow() + timedelta(days=30)),
         Coupon(code="LUNCH5", discount_percent=Decimal("5"), min_order_amount=Decimal("10"), max_discount=Decimal("5"), active=True, expires_at=datetime.utcnow() + timedelta(days=365)),
         Coupon(code="TOKYO30", discount_percent=Decimal("100"), min_order_amount=Decimal("30"), max_discount=Decimal("3.49"), active=True, expires_at=datetime.utcnow() + timedelta(days=60)),
-        Coupon(code="ATLAS15", discount_percent=Decimal("10"), min_order_amount=Decimal("20"), max_discount=Decimal("50"), active=True, expires_at=datetime.utcnow() + timedelta(days=60)),
+        Coupon(code="ATLAS15", discount_percent=Decimal("15"), min_order_amount=Decimal("20"), max_discount=Decimal("50"), active=True, expires_at=datetime.utcnow() + timedelta(days=60)),
         Coupon(code="EXPIRED10", discount_percent=Decimal("10"), min_order_amount=Decimal("0"), active=True, expires_at=datetime.utcnow() - timedelta(days=1)),
     ])
     db.session.flush()

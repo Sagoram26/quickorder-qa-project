@@ -3,6 +3,13 @@ from flask_login import login_required, current_user
 from ..models import User, Order, Restaurant, Product
 from ..extensions import db
 
+TRANSITIONS = {
+    "pending": {"confirmed", "cancelled"},
+    "confirmed": {"preparing", "cancelled"},
+    "preparing": {"out_for_delivery", "cancelled"},
+    "out_for_delivery": {"delivered", "cancelled"},
+}
+
 admin_bp = Blueprint("admin", __name__)
 
 
@@ -35,9 +42,10 @@ def update_order_status(order_id):
     if status not in allowed:
         flash("Statut invalide.", "danger")
     else:
-        # INTENTIONAL QA BUG: impossible backward transitions are accepted,
-        # e.g. delivered -> confirmed or delivered -> cancelled.
-        order.status = status
-        db.session.commit()
-        flash("Statut mis à jour.", "success")
+        if status not in TRANSITIONS.get(order.status, set()):
+            flash(f"Transition de statut invalide ({order.status} → {status}).", "danger")
+        else:
+            order.status = status
+            db.session.commit()
+            flash("Statut mis à jour.", "success")
     return redirect(url_for("admin.dashboard"))

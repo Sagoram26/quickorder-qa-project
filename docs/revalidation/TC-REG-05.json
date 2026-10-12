@@ -1,0 +1,73 @@
+{
+ "id": "TC-REG-05",
+ "status": "Pass",
+ "obtained": "1 paiement PayPal → 1 commandes créées (attendu 1).",
+ "trace": [
+  {
+   "req": "POST /login",
+   "data": {
+    "email": "alice@example.com",
+    "password": "Password123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livrais"
+  },
+  {
+   "req": "POST /login",
+   "data": {
+    "email": "alice@example.com",
+    "password": "Password123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livrais"
+  },
+  {
+   "req": "GET /api/orders",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/api/orders",
+   "body": "{\"count\":5,\"items\":[{\"cash_received\":null,\"change_due\":null,\"created_at\":\"2026-10-12T12:12:12.776949\",\"delivery_fee\":2.99,\"discount\":0.0,\"id\":5,\"items\":[{\"line_total\":23.8,\"product_id\":1,\"product_name\":\"Classic Burger\",\"quantity\":2,\"unit_price\":11.9}],\"payment_method\":\"card\",\"payment_status\":\"paid\",\"restaurant_id\":1,\"status\":\"confirmed\",\"subtotal\":23.8,\"total\":26.79},{\"cash_received\":null,\"change_due\":null,\"created_at\":\"2026-10-12T12:12:11.917823\",\"delivery_fee\":3.49,\"discount\":0.0,\"id\":4,\"items\":[{\"line_total\":31.8,\"product_id\":7,\"product_name\":\"Salmon Bowl\",\"quantity\":2,\"unit_price\":15.9}],\"payment_method\":\"card\",\"payment_status\":\"paid\",\"restaurant_id\":2,\"status\":\"confirmed\",\"subtotal\":31.8,\"total\":35.29},{\"cash_received\":null,\"change_due\":null,\"created_at\":\"2026-10-12T12:12:11.774893\",\"delivery_fee\":2.99,\"discount\":0.0,\"id\":3,\"items\":[{\"line_total\":70.0,\"product_id\":3,\"product_name\":\"Frites maison\",\"quantity\":20,\"unit_price\":3.5}],\"payment_method\":\"card\",\"payment_status\":\"paid\",\"restaurant_id\":1,\"status\":\"confirmed\",\"subtotal\":70.0,\"total\":72.99},{\"cash_received\":null,\"change_due\":null,\"created_at\":\"2026-10-12T12:12:11.095116\",\"delivery_fee\":2.99,\"discount\":2.38,\"id\":2,\"items\":[{\"line_total\":23.8,\"product_id\":1,\"product_name\":\"Classic Burger\",\"quantity\":2,\"unit_price\":11.9}],\"payment_method\":\"card\",\"payment_status\":\"paid\",\"restaurant_id\":1,\"status\":\"cancelled\",\"subtotal\":23.8,\"total\":24.41},{\"cash_received\":null,\"change_due\":null,\"created_at\":\"2026-10-12T12:12:10.217396\",\""
+  },
+  {
+   "req": "POST /cart/add/1",
+   "data": {
+    "quantity": 2
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Classic Burger ajouté au panier. Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japo"
+  },
+  {
+   "req": "POST /checkout",
+   "data": {
+    "confirm": "1",
+    "address_id": 1,
+    "payment_method": "paypal",
+    "coupon": "",
+    "customer_note": "QA"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/orders/6",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Commande confirmée ! ← Mes commandes Commande #6 confirmed Burger Factory 12/10/2026 12:12 Classic Burger × 2 23.80 € Sous-total 23.80 € Livraison 2.99 € Réduction - 0.00 € Total 26.79 € Paiement paid · paypal "
+  },
+  {
+   "req": "POST /login",
+   "data": {
+    "email": "alice@example.com",
+    "password": "Password123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livrais"
+  },
+  {
+   "req": "GET /api/orders",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/api/orders",
+   "body": "{\"count\":6,\"items\":[{\"cash_received\":null,\"change_due\":null,\"created_at\":\"2026-10-12T12:12:13.978447\",\"delivery_fee\":2.99,\"discount\":0.0,\"id\":6,\"items\":[{\"line_total\":23.8,\"product_id\":1,\"product_name\":\"Classic Burger\",\"quantity\":2,\"unit_price\":11.9}],\"payment_method\":\"paypal\",\"payment_status\":\"paid\",\"restaurant_id\":1,\"status\":\"confirmed\",\"subtotal\":23.8,\"total\":26.79},{\"cash_received\":null,\"change_due\":null,\"created_at\":\"2026-10-12T12:12:12.776949\",\"delivery_fee\":2.99,\"discount\":0.0,\"id\":5,\"items\":[{\"line_total\":23.8,\"product_id\":1,\"product_name\":\"Classic Burger\",\"quantity\":2,\"unit_price\":11.9}],\"payment_method\":\"card\",\"payment_status\":\"paid\",\"restaurant_id\":1,\"status\":\"confirmed\",\"subtotal\":23.8,\"total\":26.79},{\"cash_received\":null,\"change_due\":null,\"created_at\":\"2026-10-12T12:12:11.917823\",\"delivery_fee\":3.49,\"discount\":0.0,\"id\":4,\"items\":[{\"line_total\":31.8,\"product_id\":7,\"product_name\":\"Salmon Bowl\",\"quantity\":2,\"unit_price\":15.9}],\"payment_method\":\"card\",\"payment_status\":\"paid\",\"restaurant_id\":2,\"status\":\"confirmed\",\"subtotal\":31.8,\"total\":35.29},{\"cash_received\":null,\"change_due\":null,\"created_at\":\"2026-10-12T12:12:11.774893\",\"delivery_fee\":2.99,\"discount\":0.0,\"id\":3,\"items\":[{\"line_total\":70.0,\"product_id\":3,\"product_name\":\"Frites maison\",\"quantity\":20,\"unit_price\":3.5}],\"payment_method\":\"card\",\"payment_status\":\"paid\",\"restaurant_id\":1,\"status\":\"confirmed\",\"subtotal\":70.0,\"total\":72.99},{\"cash_received\":null,\"change_due\":null,\"created_at\":\"2026-10-12T12:12:11.095116\","
+  }
+ ]
+}

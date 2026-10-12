@@ -14,7 +14,7 @@ def test_restaurants_api_requires_key(client):
     assert client.get("/api/restaurants").status_code == 401
     response = client.get("/api/restaurants", headers={"X-API-Key": "quickorder-demo-key"})
     assert response.status_code == 200
-    assert response.get_json()["count"] == 1
+    assert response.get_json()["count"] == 2
 
 
 def test_swagger_and_openapi(client):
@@ -29,5 +29,8 @@ def test_login_and_profile(client):
 
 
 def test_api_orders_with_key(client):
-    response = client.get("/api/orders", headers={"X-API-Key": "quickorder-demo-key"})
-    assert response.status_code == 200
+    # BUG-012 : clé seule sans session -> 401 ; avec session login -> 200
+    headers = {"X-API-Key": "quickorder-demo-key"}
+    assert client.get("/api/orders", headers=headers).status_code == 401
+    client.post("/login", data={"email": "test@example.com", "password": "Password123!"})
+    assert client.get("/api/orders", headers=headers).status_code == 200

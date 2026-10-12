@@ -1,0 +1,17 @@
+{
+ "id": "TC-REG-04",
+ "status": "Pass",
+ "obtained": "ATLAS15 annoncé -15 % : sur 100 € remise = 15.0 € (15.0 %).",
+ "trace": [
+  {
+   "req": "POST /api/coupons/validate",
+   "data": {
+    "code": "ATLAS15",
+    "subtotal": 100
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/api/coupons/validate",
+   "body": "{\"code\":\"ATLAS15\",\"discount\":15.0,\"discount_percent\":15.0,\"valid\":true}\n"
+  }
+ ]
+}

@@ -1,7 +1,7 @@
 import pytest
 from app import create_app
 from app.extensions import db
-from app.models import User, Restaurant, Product
+from app.models import User, Restaurant, Product, Address
 
 
 class TestConfig:
@@ -24,6 +24,12 @@ def app():
         db.session.add_all([user, restaurant])
         db.session.flush()
         db.session.add(Product(restaurant_id=restaurant.id, name="Test Burger", description="Test", category="Burgers", price=10, stock=10))
+        db.session.add(Address(user_id=user.id, label="Domicile", street="1 rue Test", postal_code="75001", city="Paris", is_default=True))
+        db.session.add(Product(restaurant_id=restaurant.id, name="Rupture", description="Test", category="Burgers", price=10, stock=0))
+        closed = Restaurant(name="Closed", description="Ferme", category="Test", address="Paris", is_open=False)
+        db.session.add(closed)
+        db.session.flush()
+        db.session.add(Product(restaurant_id=closed.id, name="Closed Dish", description="Test", category="Test", price=10, stock=10))
         db.session.commit()
     yield app
     with app.app_context():
@@ -34,3 +40,9 @@ def app():
 @pytest.fixture()
 def client(app):
     return app.test_client()
+
+
+@pytest.fixture()
+def logged(client):
+    client.post("/login", data={"email": "test@example.com", "password": "Password123!"})
+    return client

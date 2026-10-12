@@ -1,0 +1,34 @@
+{
+ "id": "TC-ERR-12",
+ "status": "Pass",
+ "obtained": "Nouvel inscrit: adresse proposée au checkout = 'aucune' → commande #None confirmée sans adresse de livraison.",
+ "trace": [
+  {
+   "req": "POST /register",
+   "data": {
+    "name": "QA Adresse",
+    "email": "qa.addr@example.com",
+    "password": "Password123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil QA Adresse Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livraison"
+  },
+  {
+   "req": "POST /cart/add/1",
+   "data": {
+    "quantity": 2
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil QA Adresse Déconnexion Classic Burger ajouté au panier. Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japona"
+  },
+  {
+   "req": "GET /checkout",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/profile/",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil QA Adresse Déconnexion Ajoutez une adresse de livraison complète pour commander. Mon profil Informations Nom Email Téléphone Enregistrer Favoris Aucun favori. Mes adresses Aucune adresse. Ajouter une adresse Label Rue Code postal Ville"
+  }
+ ]
+}

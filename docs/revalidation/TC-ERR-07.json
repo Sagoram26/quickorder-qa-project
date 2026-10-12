@@ -1,0 +1,32 @@
+{
+ "id": "TC-ERR-07",
+ "status": "Fail",
+ "obtained": "Coupon inexistant 'CODEINVALIDE' → HTTP 201, remise=0.0, commande créée silencieusement.",
+ "trace": [
+  {
+   "req": "POST /login",
+   "data": {
+    "email": "alice@example.com",
+    "password": "Password123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livrais"
+  },
+  {
+   "req": "POST /api/orders",
+   "data": {
+    "items": [
+     {
+      "product_id": 1,
+      "quantity": 2
+     }
+    ],
+    "coupon": "CODEINVALIDE"
+   },
+   "status": 201,
+   "final_url": "http://127.0.0.1:5001/api/orders",
+   "body": "{\"cash_received\":null,\"change_due\":null,\"created_at\":\"2026-10-12T12:12:12.776949\",\"delivery_fee\":2.99,\"discount\":0.0,\"id\":5,\"items\":[{\"line_total\":23.8,\"product_id\":1,\"product_name\":\"Classic Burger\",\"quantity\":2,\"unit_price\":11.9}],\"payment_method\":\"card\",\"payment_status\":\"paid\",\"restaurant_id\":1,\"status\":\"confirmed\",\"subtotal\":23.8,\"total\":26.79}\n"
+  }
+ ]
+}

@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_required, current_user
-from ..cart import add_to_cart, update_cart, cart_items, clear_cart, remove_from_cart, cart_restaurant_ids
-from ..models import Product, Restaurant, Favorite, Review
+from ..cart import get_cart, add_to_cart, update_cart, cart_items, clear_cart, remove_from_cart, cart_restaurant_ids
+from ..models import Product, Restaurant, Favorite, Review, Order
 from ..extensions import db
 
 shop_bp = Blueprint("shop", __name__)
@@ -13,17 +13,22 @@ def add(product_id):
     quantity = request.form.get("quantity", 1, type=int)
     quantity = max(quantity or 1, 1)
 
-    # INTENTIONAL QA BUGS:
-    # - stock=0 is allowed into the cart;
-    # - a closed restaurant can still receive orders;
-    # - stock is not rechecked against the requested quantity.
-    if not product.available:
+    if not product.available or product.stock <= 0:
         flash("Produit indisponible.", "danger")
+        return redirect(request.referrer or url_for("main.index"))
+    if not product.restaurant.is_open:
+        flash("Ce restaurant est fermé.", "danger")
         return redirect(request.referrer or url_for("main.index"))
     existing_restaurants = cart_restaurant_ids()
     if existing_restaurants and product.restaurant_id not in existing_restaurants:
         flash("Un panier ne peut contenir que des produits du même restaurant.", "warning")
         return redirect(request.referrer or url_for("main.index"))
+    in_cart = get_cart().get(str(product.id), 0)
+    if in_cart + quantity > product.stock:
+        quantity = product.stock - in_cart
+        flash(f"Quantité limitée au stock disponible ({product.stock}).", "warning")
+        if quantity <= 0:
+            return redirect(request.referrer or url_for("main.index"))
     add_to_cart(product.id, quantity)
     flash(f"{product.name} ajouté au panier.", "success")
     return redirect(request.referrer or url_for("main.index"))
@@ -35,8 +40,11 @@ def cart():
         for product_id, quantity in request.form.items():
             if product_id.startswith("qty_"):
                 try:
-                    # INTENTIONAL QA BUG: quantity is not capped by current stock.
-                    update_cart(product_id.replace("qty_", ""), int(quantity))
+                    product = db.session.get(Product, int(product_id.replace("qty_", "")))
+                    stock = product.stock if product else 0
+                    if int(quantity) > stock:
+                        flash(f"Quantité limitée au stock disponible ({stock}).", "warning")
+                    update_cart(product_id.replace("qty_", ""), min(int(quantity), stock))
                 except ValueError:
                     flash("Quantité invalide.", "danger")
     items, subtotal = cart_items()
@@ -78,6 +86,10 @@ def toggle_favorite(restaurant_id):
 @login_required
 def review(restaurant_id):
     Restaurant.query.get_or_404(restaurant_id)
+    delivered = Order.query.filter_by(user_id=current_user.id, restaurant_id=restaurant_id, status="delivered").first()
+    if not delivered:
+        flash("Vous ne pouvez noter qu'un restaurant où une commande vous a été livrée.", "danger")
+        return redirect(url_for("main.restaurant", restaurant_id=restaurant_id))
     try:
         rating = int(request.form.get("rating", 0))
     except ValueError:
@@ -86,7 +98,6 @@ def review(restaurant_id):
     if rating not in range(1, 6) or not comment:
         flash("Note et commentaire obligatoires.", "danger")
         return redirect(request.referrer or url_for("main.restaurant", restaurant_id=restaurant_id))
-    # INTENTIONAL QA BUG: any logged-in user can review a restaurant without ordering it.
     db.session.add(Review(user_id=current_user.id, restaurant_id=restaurant_id, rating=rating, comment=comment))
     db.session.commit()
     flash("Merci pour votre avis !", "success")

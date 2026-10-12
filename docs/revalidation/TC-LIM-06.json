@@ -1,0 +1,53 @@
+{
+ "id": "TC-LIM-06",
+ "status": "Pass",
+ "obtained": "Stock Salmon Bowl 2 → quantité 3 commandée → commande #4 confirmée, stock final 0.",
+ "trace": [
+  {
+   "req": "GET /api/products/7",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/api/products/7",
+   "body": "{\"available\":true,\"calories\":590,\"category\":\"Bowls\",\"description\":\"Saumon, avocat, riz vinaigr\\u00e9\",\"id\":7,\"is_vegetarian\":false,\"name\":\"Salmon Bowl\",\"price\":15.9,\"restaurant_id\":2,\"stock\":2}\n"
+  },
+  {
+   "req": "POST /login",
+   "data": {
+    "email": "alice@example.com",
+    "password": "Password123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livrais"
+  },
+  {
+   "req": "POST /cart/add/7",
+   "data": {
+    "quantity": 3
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Quantité limitée au stock disponible (2). Salmon Bowl ajouté au panier. Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les "
+  },
+  {
+   "req": "POST /checkout",
+   "data": {
+    "confirm": "1",
+    "address_id": 1,
+    "payment_method": "card",
+    "coupon": "",
+    "customer_note": "QA"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/orders/4",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Commande confirmée ! ← Mes commandes Commande #4 confirmed Tokyo Bowl 12/10/2026 12:12 Salmon Bowl × 2 31.80 € Sous-total 31.80 € Livraison 3.49 € Réduction - 0.00 € Total 35.29 € Paiement paid · card Livraison"
+  },
+  {
+   "req": "GET /api/products/7",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/api/products/7",
+   "body": "{\"available\":true,\"calories\":590,\"category\":\"Bowls\",\"description\":\"Saumon, avocat, riz vinaigr\\u00e9\",\"id\":7,\"is_vegetarian\":false,\"name\":\"Salmon Bowl\",\"price\":15.9,\"restaurant_id\":2,\"stock\":0}\n"
+  }
+ ]
+}

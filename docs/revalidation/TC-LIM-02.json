@@ -1,0 +1,17 @@
+{
+ "id": "TC-LIM-02",
+ "status": "Pass",
+ "obtained": "Subtotal 19.99 → HTTP 200 {'error': 'Montant minimum non atteint.', 'minimum': 20.0, 'valid': False}",
+ "trace": [
+  {
+   "req": "POST /api/coupons/validate",
+   "data": {
+    "code": "WELCOME10",
+    "subtotal": 19.99
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/api/coupons/validate",
+   "body": "{\"error\":\"Montant minimum non atteint.\",\"minimum\":20.0,\"valid\":false}\n"
+  }
+ ]
+}

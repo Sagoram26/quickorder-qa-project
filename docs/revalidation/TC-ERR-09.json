@@ -1,0 +1,14 @@
+{
+ "id": "TC-ERR-09",
+ "status": "Pass",
+ "obtained": "GET /api/orders avec clé seule (aucune session) → HTTP 401, 0 commandes d'Alice retournées.",
+ "trace": [
+  {
+   "req": "GET /api/orders",
+   "data": null,
+   "status": 401,
+   "final_url": "http://127.0.0.1:5001/api/orders",
+   "body": "{\"error\":\"authentication required (login session)\"}\n"
+  }
+ ]
+}

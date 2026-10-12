@@ -1,0 +1,182 @@
+[
+ {
+  "id": "TC-NOM-01",
+  "status": "Pass",
+  "obtained": "Compte créé, connecté automatiquement, profil affiche 'QA Tester'."
+ },
+ {
+  "id": "TC-NOM-02",
+  "status": "Pass",
+  "obtained": "Connexion alice OK, page profil accessible."
+ },
+ {
+  "id": "TC-NOM-03",
+  "status": "Pass",
+  "obtained": "Recherche 'Burger' retourne uniquement Burger Factory."
+ },
+ {
+  "id": "TC-NOM-04",
+  "status": "Pass",
+  "obtained": "Panier: 3 x Classic Burger, sous-total 35.70 € affiché."
+ },
+ {
+  "id": "TC-NOM-05",
+  "status": "Pass",
+  "obtained": "Commande #2: sous-total 23.8, remise 2.38, total 24.41, statut confirmed."
+ },
+ {
+  "id": "TC-NOM-07",
+  "status": "Pass",
+  "obtained": "Statut commande #2 après annulation: cancelled."
+ },
+ {
+  "id": "TC-NOM-06",
+  "status": "Pass",
+  "obtained": "HTTP 200, count=6, trié par note décroissante."
+ },
+ {
+  "id": "TC-LIM-01",
+  "status": "Pass",
+  "obtained": "Subtotal 20.00 → HTTP 200 {'code': 'WELCOME10', 'discount': 2.0, 'discount_percent': 10.0, 'valid': True}"
+ },
+ {
+  "id": "TC-LIM-02",
+  "status": "Pass",
+  "obtained": "Subtotal 19.99 → HTTP 200 {'error': 'Montant minimum non atteint.', 'minimum': 20.0, 'valid': False}"
+ },
+ {
+  "id": "TC-LIM-03",
+  "status": "Pass",
+  "obtained": "SAVE20 sur 100 € → remise 12.0 (20 % = 20 €, plafond 12 €)."
+ },
+ {
+  "id": "TC-LIM-04",
+  "status": "Pass",
+  "obtained": "Quantité API 0→400, 21→400, 20→201 (attendu 400/400/201)."
+ },
+ {
+  "id": "TC-LIM-05",
+  "status": "Pass",
+  "obtained": "Filtre livraison max 2.50 € affiche: Green Kitchen, Pizza Roma (attendu: Green Kitchen 1.99 €, Pizza Roma 2.49 € uniquement)."
+ },
+ {
+  "id": "TC-LIM-06",
+  "status": "Pass",
+  "obtained": "Stock Salmon Bowl 2 → quantité 3 commandée → commande #4 confirmée, stock final 0."
+ },
+ {
+  "id": "TC-LIM-07",
+  "status": "Pass",
+  "obtained": "mdp 7 car. accepté=False, mdp 8 car. accepté=True, nom 1 car. accepté=False (attendu False/True/False)."
+ },
+ {
+  "id": "TC-ERR-01",
+  "status": "Pass",
+  "obtained": "GET /api/restaurants sans clé → HTTP 401 {\"error\":\"missing or invalid X-API-Key\",\"hint\":\"Use Swagger > Authorize\"}"
+ },
+ {
+  "id": "TC-ERR-02",
+  "status": "Pass",
+  "obtained": "Message 'Email ou mot de passe incorrect.' affiché, non connecté."
+ },
+ {
+  "id": "TC-ERR-03",
+  "status": "Pass",
+  "obtained": "EXPIRED10 → HTTP 404 {'error': 'Coupon invalide ou expiré.', 'valid': False}"
+ },
+ {
+  "id": "TC-ERR-04",
+  "status": "Pass",
+  "obtained": "Veggie Burger (stock 0): visible sur la page restaurant=True, ajouté au panier=False."
+ },
+ {
+  "id": "TC-ERR-05",
+  "status": "Pass",
+  "obtained": "items=[] → 400; produit inconnu → 400."
+ },
+ {
+  "id": "TC-ERR-06",
+  "status": "Pass",
+  "obtained": "Espèces 5.00 € pour total None € → commande #None None/None, change_due=None."
+ },
+ {
+  "id": "TC-ERR-07",
+  "status": "Fail",
+  "obtained": "Coupon inexistant 'CODEINVALIDE' → HTTP 201, remise=0.0, commande créée silencieusement."
+ },
+ {
+  "id": "TC-ERR-08",
+  "status": "Pass",
+  "obtained": "Bob → commande d'Alice #5: UI redirigé (flash 'Commande inaccessible.')=True, API HTTP 403."
+ },
+ {
+  "id": "TC-ERR-09",
+  "status": "Pass",
+  "obtained": "GET /api/orders avec clé seule (aucune session) → HTTP 401, 0 commandes d'Alice retournées."
+ },
+ {
+  "id": "TC-ERR-10",
+  "status": "Pass",
+  "obtained": "POST /login?next=https://evil.example/phish → HTTP 302 Location: /"
+ },
+ {
+  "id": "TC-ERR-11",
+  "status": "Pass",
+  "obtained": "/admin/ anonyme → HTTP 302; client alice → page d'accueil + 'Accès réservé aux administrateurs.'"
+ },
+ {
+  "id": "TC-REG-01",
+  "status": "Pass",
+  "obtained": "Ajout Margherita (Pizza Roma) refusé: 'Un panier ne peut contenir que des produits du même restaurant.'"
+ },
+ {
+  "id": "TC-REG-02",
+  "status": "Pass",
+  "obtained": "Night Sushi (fermé): UI commande #None confirmée; API POST /orders → HTTP 409. Listé aussi dans GET /api/restaurants."
+ },
+ {
+  "id": "TC-REG-03",
+  "status": "Pass",
+  "obtained": "Burger Factory minimum 20.00 €, panier 3.50 € → commande #None confirmée (total None €)."
+ },
+ {
+  "id": "TC-REG-04",
+  "status": "Pass",
+  "obtained": "ATLAS15 annoncé -15 % : sur 100 € remise = 15.0 € (15.0 %)."
+ },
+ {
+  "id": "TC-REG-05",
+  "status": "Pass",
+  "obtained": "1 paiement PayPal → 1 commandes créées (attendu 1)."
+ },
+ {
+  "id": "TC-REG-06",
+  "status": "Pass",
+  "obtained": "Commande #1 livrée, admin → 'confirmed': statut final = delivered (retour arrière accepté)."
+ },
+ {
+  "id": "TC-REG-07",
+  "status": "Pass",
+  "obtained": "Bob (jamais commandé chez Green Kitchen) → avis publié: False."
+ },
+ {
+  "id": "TC-REG-08",
+  "status": "Pass",
+  "obtained": "TOKYO30 sur 40.50 €: remise 3.49, frais 3.49, total 40.5 (= sous-total → livraison offerte)."
+ },
+ {
+  "id": "TC-LIM-08",
+  "status": "Pass",
+  "obtained": "Recherche 'japonaise' (présent dans la description de Tokyo Bowl 'Cuisine japonaise et bowls frais'): UI Tokyo Bowl trouvé=True, API count=1."
+ },
+ {
+  "id": "TC-ERR-12",
+  "status": "Pass",
+  "obtained": "Nouvel inscrit: adresse proposée au checkout = 'aucune' → commande #None confirmée sans adresse de livraison."
+ },
+ {
+  "id": "TC-ERR-13",
+  "status": "Pass",
+  "obtained": "Déconnexion déclenchée par simple GET /logout (sans POST ni jeton CSRF): connecté avant=True, connecté après=True."
+ }
+]

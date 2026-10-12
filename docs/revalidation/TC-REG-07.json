@@ -1,0 +1,27 @@
+{
+ "id": "TC-REG-07",
+ "status": "Pass",
+ "obtained": "Bob (jamais commandé chez Green Kitchen) → avis publié: False.",
+ "trace": [
+  {
+   "req": "POST /login",
+   "data": {
+    "email": "bob@example.com",
+    "password": "Password123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Bob Dupont Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livraison"
+  },
+  {
+   "req": "POST /restaurant/3/review",
+   "data": {
+    "rating": 1,
+    "comment": "QA: avis sans commande"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5001/restaurant/3",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Bob Dupont Déconnexion Vous ne pouvez noter qu&#39;un restaurant où une commande vous a été livrée. Healthy OUVERT Green Kitchen Salades, wraps et options végétariennes. ⭐ 4.5 · 41 rue de Lyon, Paris · 20 min · Livraison 1.99 € · minim"
+  }
+ ]
+}
