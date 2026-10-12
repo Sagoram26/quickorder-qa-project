@@ -1,0 +1,42 @@
+{
+ "id": "TC-NOM-04",
+ "status": "Pass",
+ "obtained": "Panier: 3 x Classic Burger, sous-total 35.70 € affiché.",
+ "trace": [
+  {
+   "req": "POST /login",
+   "data": {
+    "email": "alice@example.com",
+    "password": "Password123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livrais"
+  },
+  {
+   "req": "POST /cart/add/1",
+   "data": {
+    "quantity": 2
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Classic Burger ajouté au panier. Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japo"
+  },
+  {
+   "req": "POST /cart",
+   "data": {
+    "qty_1": 3
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/cart",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Votre panier Produit Prix Qté Total Classic Burger 11.90 € 35.70 € Sous-total 35.70 € Livraison 2.99 € Total 38.69 € Mettre à jour Passer commande Vider le panier QuickOrder · Application pédagogique Tests & qu"
+  },
+  {
+   "req": "GET /cart",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/cart",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Votre panier Produit Prix Qté Total Classic Burger 11.90 € 35.70 € Sous-total 35.70 € Livraison 2.99 € Total 38.69 € Mettre à jour Passer commande Vider le panier QuickOrder · Application pédagogique Tests & qu"
+  }
+ ]
+}

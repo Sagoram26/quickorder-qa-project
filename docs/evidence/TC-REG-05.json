@@ -1,0 +1,73 @@
+{
+ "id": "TC-REG-05",
+ "status": "Fail",
+ "obtained": "1 paiement PayPal → 2 commandes créées (attendu 1).",
+ "trace": [
+  {
+   "req": "POST /login",
+   "data": {
+    "email": "alice@example.com",
+    "password": "Password123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livrais"
+  },
+  {
+   "req": "POST /login",
+   "data": {
+    "email": "alice@example.com",
+    "password": "Password123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livrais"
+  },
+  {
+   "req": "GET /api/orders",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/api/orders",
+   "body": "{\n  \"count\": 9,\n  \"items\": [\n    {\n      \"cash_received\": null,\n      \"change_due\": null,\n      \"created_at\": \"2026-10-12T08:01:04.024682\",\n      \"delivery_fee\": 2.99,\n      \"discount\": 0.0,\n      \"id\": 9,\n      \"items\": [\n        {\n          \"line_total\": 3.5,\n          \"product_id\": 3,\n          \"product_name\": \"Frites maison\",\n          \"quantity\": 1,\n          \"unit_price\": 3.5\n        }\n      ],\n      \"payment_method\": \"card\",\n      \"payment_status\": \"paid\",\n      \"restaurant_id\": 1,\n      \"status\": \"confirmed\",\n      \"subtotal\": 3.5,\n      \"total\": 6.49\n    },\n    {\n      \"cash_received\": null,\n      \"change_due\": null,\n      \"created_at\": \"2026-10-12T08:01:03.887957\",\n      \"delivery_fee\": 2.99,\n      \"discount\": 0.0,\n      \"id\": 8,\n      \"items\": [\n        {\n          \"line_total\": 14.0,\n          \"product_id\": 24,\n          \"product_name\": \"Late Sushi Box\",\n          \"quantity\": 1,\n          \"unit_price\": 14.0\n        }\n      ],\n      \"payment_method\": \"card\",\n      \"payment_status\": \"paid\",\n      \"restaurant_id\": 6,\n      \"status\": \"confirmed\",\n      \"subtotal\": 14.0,\n      \"total\": 16.99\n    },\n    {\n      \"cash_received\": null,\n      \"change_due\": null,\n      \"created_at\": \"2026-10-12T08:01:03.856081\",\n      \"delivery_fee\": 2.99,\n      \"discount\": 0.0,\n      \"id\": 7,\n      \"items\": [\n        {\n          \"line_total\": 14.0,\n          \"product_id\": 24,\n          \"product_name\": \"Late Sushi Box\",\n          \"quantity\": 1,\n          \"unit_price\": 14.0\n        }\n      ]"
+  },
+  {
+   "req": "POST /cart/add/1",
+   "data": {
+    "quantity": 2
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Classic Burger ajouté au panier. Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japo"
+  },
+  {
+   "req": "POST /checkout",
+   "data": {
+    "confirm": "1",
+    "address_id": 1,
+    "payment_method": "paypal",
+    "coupon": "",
+    "customer_note": "QA"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/orders/10",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Commande confirmée ! ← Mes commandes Commande #10 confirmed Burger Factory 12/10/2026 08:01 Classic Burger × 2 23.80 € Sous-total 23.80 € Livraison 2.99 € Réduction - 0.00 € Total 26.79 € Paiement paid · paypal"
+  },
+  {
+   "req": "POST /login",
+   "data": {
+    "email": "alice@example.com",
+    "password": "Password123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livrais"
+  },
+  {
+   "req": "GET /api/orders",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/api/orders",
+   "body": "{\n  \"count\": 11,\n  \"items\": [\n    {\n      \"cash_received\": null,\n      \"change_due\": null,\n      \"created_at\": \"2026-10-12T08:01:04.401748\",\n      \"delivery_fee\": 2.99,\n      \"discount\": 0.0,\n      \"id\": 11,\n      \"items\": [\n        {\n          \"line_total\": 23.8,\n          \"product_id\": 1,\n          \"product_name\": \"Classic Burger\",\n          \"quantity\": 2,\n          \"unit_price\": 11.9\n        }\n      ],\n      \"payment_method\": \"paypal\",\n      \"payment_status\": \"paid\",\n      \"restaurant_id\": 1,\n      \"status\": \"confirmed\",\n      \"subtotal\": 23.8,\n      \"total\": 26.79\n    },\n    {\n      \"cash_received\": null,\n      \"change_due\": null,\n      \"created_at\": \"2026-10-12T08:01:04.394411\",\n      \"delivery_fee\": 2.99,\n      \"discount\": 0.0,\n      \"id\": 10,\n      \"items\": [\n        {\n          \"line_total\": 23.8,\n          \"product_id\": 1,\n          \"product_name\": \"Classic Burger\",\n          \"quantity\": 2,\n          \"unit_price\": 11.9\n        }\n      ],\n      \"payment_method\": \"paypal\",\n      \"payment_status\": \"paid\",\n      \"restaurant_id\": 1,\n      \"status\": \"confirmed\",\n      \"subtotal\": 23.8,\n      \"total\": 26.79\n    },\n    {\n      \"cash_received\": null,\n      \"change_due\": null,\n      \"created_at\": \"2026-10-12T08:01:04.024682\",\n      \"delivery_fee\": 2.99,\n      \"discount\": 0.0,\n      \"id\": 9,\n      \"items\": [\n        {\n          \"line_total\": 3.5,\n          \"product_id\": 3,\n          \"product_name\": \"Frites maison\",\n          \"quantity\": 1,\n          \"unit_price\": 3.5\n        }\n"
+  }
+ ]
+}

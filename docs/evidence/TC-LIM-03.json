@@ -1,0 +1,17 @@
+{
+ "id": "TC-LIM-03",
+ "status": "Pass",
+ "obtained": "SAVE20 sur 100 € → remise 12.0 (20 % = 20 €, plafond 12 €).",
+ "trace": [
+  {
+   "req": "POST /api/coupons/validate",
+   "data": {
+    "code": "SAVE20",
+    "subtotal": 100
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/api/coupons/validate",
+   "body": "{\n  \"code\": \"SAVE20\",\n  \"discount\": 12.0,\n  \"discount_percent\": 20.0,\n  \"valid\": true\n}\n"
+  }
+ ]
+}

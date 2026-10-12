@@ -1,0 +1,42 @@
+{
+ "id": "TC-REG-01",
+ "status": "Pass",
+ "obtained": "Ajout Margherita (Pizza Roma) refusé: 'Un panier ne peut contenir que des produits du même restaurant.'",
+ "trace": [
+  {
+   "req": "POST /login",
+   "data": {
+    "email": "alice@example.com",
+    "password": "Password123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livrais"
+  },
+  {
+   "req": "POST /cart/add/1",
+   "data": {
+    "quantity": 1
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Classic Burger ajouté au panier. Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japo"
+  },
+  {
+   "req": "POST /cart/add/16",
+   "data": {
+    "quantity": 1
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Un panier ne peut contenir que des produits du même restaurant. Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégori"
+  },
+  {
+   "req": "GET /cart",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/cart",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Votre panier Produit Prix Qté Total Classic Burger 11.90 € 11.90 € Sous-total 11.90 € Livraison 2.99 € Total 14.89 € Mettre à jour Passer commande Vider le panier QuickOrder · Application pédagogique Tests & qu"
+  }
+ ]
+}

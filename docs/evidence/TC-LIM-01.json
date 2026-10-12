@@ -1,0 +1,17 @@
+{
+ "id": "TC-LIM-01",
+ "status": "Pass",
+ "obtained": "Subtotal 20.00 → HTTP 200 {'code': 'WELCOME10', 'discount': 2.0, 'discount_percent': 10.0, 'valid': True}",
+ "trace": [
+  {
+   "req": "POST /api/coupons/validate",
+   "data": {
+    "code": "WELCOME10",
+    "subtotal": 20
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/api/coupons/validate",
+   "body": "{\n  \"code\": \"WELCOME10\",\n  \"discount\": 2.0,\n  \"discount_percent\": 10.0,\n  \"valid\": true\n}\n"
+  }
+ ]
+}

@@ -1,0 +1,38 @@
+{
+ "id": "TC-ERR-13",
+ "status": "Fail",
+ "obtained": "Déconnexion déclenchée par simple GET /logout (sans POST ni jeton CSRF): connecté avant=True, connecté après=False.",
+ "trace": [
+  {
+   "req": "POST /login",
+   "data": {
+    "email": "alice@example.com",
+    "password": "Password123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livrais"
+  },
+  {
+   "req": "GET /profile/",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/profile/",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Mon profil Informations Nom Email Téléphone Enregistrer Favoris Aucun favori. Mes adresses Domicile 10 rue de Paris, 75001 Paris · Par défaut Ajouter une adresse Label Rue Code postal Ville Instructions Adresse"
+  },
+  {
+   "req": "GET /logout",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Connexion Créer un compte Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livraison moins chère Plus "
+  },
+  {
+   "req": "GET /profile/",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/login?next=%2Fprofile%2F",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Connexion Créer un compte Connectez-vous pour accéder à cette page. Connexion Email Mot de passe Se souvenir de moi Se connecter Compte démo : alice@example.com / Password123! QuickOrder · Application pédagogique Tests & qualité · API Swagger "
+  }
+ ]
+}

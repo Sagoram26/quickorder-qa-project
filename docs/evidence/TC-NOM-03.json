@@ -1,0 +1,14 @@
+{
+ "id": "TC-NOM-03",
+ "status": "Pass",
+ "obtained": "Recherche 'Burger' retourne uniquement Burger Factory.",
+ "trace": [
+  {
+   "req": "GET /?q=Burger",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/?q=Burger",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Connexion Créer un compte Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livraison moins chère Plus "
+  }
+ ]
+}

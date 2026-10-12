@@ -1,0 +1,17 @@
+{
+ "id": "TC-ERR-10",
+ "status": "Fail",
+ "obtained": "POST /login?next=https://evil.example/phish → HTTP 302 Location: https://evil.example/phish",
+ "trace": [
+  {
+   "req": "POST /login?next=https://evil.example/phish",
+   "data": {
+    "email": "alice@example.com",
+    "password": "Password123!"
+   },
+   "status": 302,
+   "final_url": "http://127.0.0.1:5000/login?next=https://evil.example/phish",
+   "body": " Redirecting... Redirecting... You should be redirected automatically to the target URL: https://evil.example/phish . If not, click the link. "
+  }
+ ]
+}

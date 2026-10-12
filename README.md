@@ -117,6 +117,23 @@ pytest -q
 - `docs/API.md` — guide de test de l'API et configuration de la clé Swagger
 - `docs/STUDENT_BRIEF.md` — sujet à distribuer aux étudiants
 
+## Audit qualité (livrables QA)
+
+Résultat de la campagne: 36 cas exécutés, 20 Pass, 16 Fail, 16 bugs documentés. Recommandation: **No-Go**.
+
+| Livrable | Fichier |
+|---|---|
+| Stratégie de test | `docs/test-strategy.md` |
+| Matrice de risques | `docs/risk-matrix.md` |
+| Cas de test (36) | `docs/test-cases.xlsx` |
+| Rapport d'exécution et Go / No-Go | `docs/execution-report.md` |
+| Bug reports (16) | `docs/bug-reports/` |
+| Retours utilisateurs | `docs/user-feedback.md` |
+| Plan d'amélioration | `docs/improvement-plan.md` |
+| Preuves (JSON requêtes/réponses, captures) | `docs/evidence/` |
+
+Rejouer la campagne (réinitialise la base, app lancée sur `127.0.0.1:5000`) : `python docs/evidence/_campaign_script.py`.
+
 ## Important
 
 QuickOrder est volontairement une application pédagogique et ne doit pas être considérée comme une application de production. Certains choix et certaines anomalies sont conservés pour créer des situations de test réalistes.

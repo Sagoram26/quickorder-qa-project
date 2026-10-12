@@ -1,0 +1,14 @@
+{
+ "id": "TC-LIM-05",
+ "status": "Fail",
+ "obtained": "Filtre livraison max 2.50 € affiche: Burger Factory, Tokyo Bowl, Couscous Atlas, Night Sushi (attendu: Green Kitchen 1.99 €, Pizza Roma 2.49 € uniquement).",
+ "trace": [
+  {
+   "req": "GET /?max_delivery=2.50",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/?max_delivery=2.50",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Connexion Créer un compte Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livraison moins chère Plus "
+  }
+ ]
+}

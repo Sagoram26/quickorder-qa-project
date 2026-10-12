@@ -1,0 +1,33 @@
+{
+ "id": "TC-REG-06",
+ "status": "Fail",
+ "obtained": "Commande #1 livrée, admin → 'confirmed': statut final = confirmed (retour arrière accepté).",
+ "trace": [
+  {
+   "req": "POST /login",
+   "data": {
+    "email": "admin@quickorder.local",
+    "password": "Admin123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Admin Admin QuickOrder Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux not"
+  },
+  {
+   "req": "POST /admin/orders/1/status",
+   "data": {
+    "status": "confirmed"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/admin/",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Admin Admin QuickOrder Déconnexion Statut mis à jour. Administration 5 Utilisateurs 11 Commandes 6 Restaurants 25 Produits Dernières commandes #11 · Alice Martin · Burger Factory confirmed confirmed preparing out_for_delivery delivered"
+  },
+  {
+   "req": "GET /api/orders/1",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/api/orders/1",
+   "body": "{\n  \"cash_received\": null,\n  \"change_due\": null,\n  \"created_at\": \"2026-10-12T08:01:00.946214\",\n  \"delivery_fee\": 2.99,\n  \"discount\": 0.0,\n  \"id\": 1,\n  \"items\": [\n    {\n      \"line_total\": 11.9,\n      \"product_id\": 1,\n      \"product_name\": \"Classic Burger\",\n      \"quantity\": 1,\n      \"unit_price\": 11.9\n    },\n    {\n      \"line_total\": 3.5,\n      \"product_id\": 3,\n      \"product_name\": \"Frites maison\",\n      \"quantity\": 1,\n      \"unit_price\": 3.5\n    }\n  ],\n  \"payment_method\": \"card\",\n  \"payment_status\": \"paid\",\n  \"restaurant_id\": 1,\n  \"status\": \"confirmed\",\n  \"subtotal\": 15.4,\n  \"total\": 18.39\n}\n"
+  }
+ ]
+}

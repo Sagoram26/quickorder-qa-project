@@ -1,0 +1,47 @@
+{
+ "id": "TC-ERR-04",
+ "status": "Fail",
+ "obtained": "Veggie Burger (stock 0): visible sur la page restaurant=True, ajouté au panier=True.",
+ "trace": [
+  {
+   "req": "GET /api/restaurants",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/api/restaurants",
+   "body": "{\n  \"count\": 6,\n  \"items\": [\n    {\n      \"address\": \"7 boulevard Voltaire, Paris\",\n      \"category\": \"Marocain\",\n      \"delivery_fee\": 2.99,\n      \"delivery_time_min\": 40,\n      \"description\": \"Cuisine marocaine familiale et g\\u00e9n\\u00e9reuse.\",\n      \"id\": 5,\n      \"is_open\": true,\n      \"minimum_order\": 25.0,\n      \"name\": \"Couscous Atlas\",\n      \"promo_text\": \"\\ud83c\\udf9f\\ufe0f Code ATLAS15 annonc\\u00e9 comme -15% sur ce restaurant\",\n      \"rating\": 4.9\n    },\n    {\n      \"address\": \"8 avenue de l'Op\\u00e9ra, Paris\",\n      \"category\": \"Japonais\",\n      \"delivery_fee\": 3.49,\n      \"delivery_time_min\": 35,\n      \"description\": \"Cuisine japonaise et bowls frais.\",\n      \"id\": 2,\n      \"is_open\": true,\n      \"minimum_order\": 15.0,\n      \"name\": \"Tokyo Bowl\",\n      \"promo_text\": \"Livraison gratuite d\\u00e8s 30 \\u20ac avec TOKYO30\",\n      \"rating\": 4.8\n    },\n    {\n      \"address\": \"18 rue du Commerce, Paris\",\n      \"category\": \"Burgers\",\n      \"delivery_fee\": 2.99,\n      \"delivery_time_min\": 25,\n      \"description\": \"Burgers, frites et menus g\\u00e9n\\u00e9reux.\",\n      \"id\": 1,\n      \"is_open\": true,\n      \"minimum_order\": 20.0,\n      \"name\": \"Burger Factory\",\n      \"promo_text\": \"\",\n      \"rating\": 4.7\n    },\n    {\n      \"address\": \"41 rue de Lyon, Paris\",\n      \"category\": \"Healthy\",\n      \"delivery_fee\": 1.99,\n      \"delivery_time_min\": 20,\n      \"description\": \"Salades, wraps et options v\\u00e9g\\u00e9tariennes.\",\n      \"id\": 3,\n      \"is_open\": true,\n      \"minimum_order"
+  },
+  {
+   "req": "GET /restaurant/1",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/restaurant/1",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Connexion Créer un compte Burgers OUVERT Burger Factory Burgers, frites et menus généreux. ⭐ 4.7 · 18 rue du Commerce, Paris · 25 min · Livraison 2.99 € · minimum 20.00 € Accompagnements Végétarien Frites maison Frites croustillantes 420 kcal · Stock 80 3."
+  },
+  {
+   "req": "POST /login",
+   "data": {
+    "email": "alice@example.com",
+    "password": "Password123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livrais"
+  },
+  {
+   "req": "POST /cart/add/4",
+   "data": {
+    "quantity": 1
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Veggie Burger ajouté au panier. Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japon"
+  },
+  {
+   "req": "GET /cart",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/cart",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Votre panier Produit Prix Qté Total Veggie Burger 12.90 € 12.90 € Sous-total 12.90 € Livraison 2.99 € Total 15.89 € Mettre à jour Passer commande Vider le panier QuickOrder · Application pédagogique Tests & qua"
+  }
+ ]
+}

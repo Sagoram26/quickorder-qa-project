@@ -1,0 +1,17 @@
+{
+ "id": "TC-ERR-02",
+ "status": "Pass",
+ "obtained": "Message 'Email ou mot de passe incorrect.' affiché, non connecté.",
+ "trace": [
+  {
+   "req": "POST /login",
+   "data": {
+    "email": "alice@example.com",
+    "password": "wrong"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/login",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Connexion Créer un compte Email ou mot de passe incorrect. Connexion Email Mot de passe Se souvenir de moi Se connecter Compte démo : alice@example.com / Password123! QuickOrder · Application pédagogique Tests & qualité · API Swagger "
+  }
+ ]
+}

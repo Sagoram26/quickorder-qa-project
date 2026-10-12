@@ -1,0 +1,54 @@
+{
+ "id": "TC-REG-02",
+ "status": "Fail",
+ "obtained": "Night Sushi (fermé): UI commande #7 confirmée; API POST /orders → HTTP 201. Listé aussi dans GET /api/restaurants.",
+ "trace": [
+  {
+   "req": "POST /login",
+   "data": {
+    "email": "alice@example.com",
+    "password": "Password123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livrais"
+  },
+  {
+   "req": "POST /cart/add/24",
+   "data": {
+    "quantity": 1
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Late Sushi Box ajouté au panier. Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japo"
+  },
+  {
+   "req": "POST /checkout",
+   "data": {
+    "confirm": "1",
+    "address_id": 1,
+    "payment_method": "card",
+    "coupon": "",
+    "customer_note": "QA"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/orders/7",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Commande confirmée ! ← Mes commandes Commande #7 confirmed Night Sushi 12/10/2026 08:01 Late Sushi Box × 1 14.00 € Sous-total 14.00 € Livraison 2.99 € Réduction - 0.00 € Total 16.99 € Paiement paid · card Livra"
+  },
+  {
+   "req": "POST /api/orders",
+   "data": {
+    "items": [
+     {
+      "product_id": 24,
+      "quantity": 1
+     }
+    ],
+    "payment_method": "card"
+   },
+   "status": 201,
+   "final_url": "http://127.0.0.1:5000/api/orders",
+   "body": "{\n  \"cash_received\": null,\n  \"change_due\": null,\n  \"created_at\": \"2026-10-12T08:01:03.887957\",\n  \"delivery_fee\": 2.99,\n  \"discount\": 0.0,\n  \"id\": 8,\n  \"items\": [\n    {\n      \"line_total\": 14.0,\n      \"product_id\": 24,\n      \"product_name\": \"Late Sushi Box\",\n      \"quantity\": 1,\n      \"unit_price\": 14.0\n    }\n  ],\n  \"payment_method\": \"card\",\n  \"payment_status\": \"paid\",\n  \"restaurant_id\": 6,\n  \"status\": \"confirmed\",\n  \"subtotal\": 14.0,\n  \"total\": 16.99\n}\n"
+  }
+ ]
+}

@@ -1,0 +1,46 @@
+{
+ "id": "TC-ERR-12",
+ "status": "Fail",
+ "obtained": "Nouvel inscrit: adresse proposée au checkout = 'Domicile — ,' (vide) → commande #13 confirmée sans adresse de livraison.",
+ "trace": [
+  {
+   "req": "POST /register",
+   "data": {
+    "name": "QA Adresse",
+    "email": "qa.addr@example.com",
+    "password": "Password123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil QA Adresse Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livraison"
+  },
+  {
+   "req": "POST /cart/add/1",
+   "data": {
+    "quantity": 2
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil QA Adresse Déconnexion Classic Burger ajouté au panier. Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japona"
+  },
+  {
+   "req": "GET /checkout",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/checkout",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil QA Adresse Déconnexion Finaliser la commande Livraison Adresse Domicile — , Note de livraison Paiement Coupon Appliquer Mode de paiement Carte bancaire — succès PayPal — succès Espèces Montant remis en espèces (€) Le montant saisi sera"
+  },
+  {
+   "req": "POST /checkout",
+   "data": {
+    "confirm": "1",
+    "address_id": 5,
+    "payment_method": "card",
+    "customer_note": ""
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/orders/13",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil QA Adresse Déconnexion Commande confirmée ! ← Mes commandes Commande #13 confirmed Burger Factory 12/10/2026 08:01 Classic Burger × 2 23.80 € Sous-total 23.80 € Livraison 2.99 € Réduction - 0.00 € Total 26.79 € Paiement paid · card Liv"
+  }
+ ]
+}

@@ -1,0 +1,77 @@
+{
+ "id": "TC-REG-08",
+ "status": "Pass",
+ "obtained": "TOKYO30 sur 40.50 €: remise 3.49, frais 3.49, total 40.5 (= sous-total → livraison offerte).",
+ "trace": [
+  {
+   "req": "GET /api/restaurants",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/api/restaurants",
+   "body": "{\n  \"count\": 6,\n  \"items\": [\n    {\n      \"address\": \"7 boulevard Voltaire, Paris\",\n      \"category\": \"Marocain\",\n      \"delivery_fee\": 2.99,\n      \"delivery_time_min\": 40,\n      \"description\": \"Cuisine marocaine familiale et g\\u00e9n\\u00e9reuse.\",\n      \"id\": 5,\n      \"is_open\": true,\n      \"minimum_order\": 25.0,\n      \"name\": \"Couscous Atlas\",\n      \"promo_text\": \"\\ud83c\\udf9f\\ufe0f Code ATLAS15 annonc\\u00e9 comme -15% sur ce restaurant\",\n      \"rating\": 4.9\n    },\n    {\n      \"address\": \"8 avenue de l'Op\\u00e9ra, Paris\",\n      \"category\": \"Japonais\",\n      \"delivery_fee\": 3.49,\n      \"delivery_time_min\": 35,\n      \"description\": \"Cuisine japonaise et bowls frais.\",\n      \"id\": 2,\n      \"is_open\": true,\n      \"minimum_order\": 15.0,\n      \"name\": \"Tokyo Bowl\",\n      \"promo_text\": \"Livraison gratuite d\\u00e8s 30 \\u20ac avec TOKYO30\",\n      \"rating\": 4.8\n    },\n    {\n      \"address\": \"18 rue du Commerce, Paris\",\n      \"category\": \"Burgers\",\n      \"delivery_fee\": 2.99,\n      \"delivery_time_min\": 25,\n      \"description\": \"Burgers, frites et menus g\\u00e9n\\u00e9reux.\",\n      \"id\": 1,\n      \"is_open\": true,\n      \"minimum_order\": 20.0,\n      \"name\": \"Burger Factory\",\n      \"promo_text\": \"\",\n      \"rating\": 4.7\n    },\n    {\n      \"address\": \"41 rue de Lyon, Paris\",\n      \"category\": \"Healthy\",\n      \"delivery_fee\": 1.99,\n      \"delivery_time_min\": 20,\n      \"description\": \"Salades, wraps et options v\\u00e9g\\u00e9tariennes.\",\n      \"id\": 3,\n      \"is_open\": true,\n      \"minimum_order"
+  },
+  {
+   "req": "GET /api/restaurants/5/products",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/api/restaurants/5/products",
+   "body": "{\n  \"items\": [\n    {\n      \"available\": true,\n      \"calories\": 40,\n      \"category\": \"Boissons\",\n      \"description\": \"Th\\u00e9 vert et menthe fra\\u00eeche\",\n      \"id\": 23,\n      \"is_vegetarian\": true,\n      \"name\": \"Th\\u00e9 \\u00e0 la menthe\",\n      \"price\": 3.5,\n      \"restaurant_id\": 5,\n      \"stock\": 100\n    },\n    {\n      \"available\": true,\n      \"calories\": 980,\n      \"category\": \"Plats\",\n      \"description\": \"Semoule, poulet, merguez et l\\u00e9gumes\",\n      \"id\": 20,\n      \"is_vegetarian\": false,\n      \"name\": \"Couscous Royal\",\n      \"price\": 17.9,\n      \"restaurant_id\": 5,\n      \"stock\": 100\n    },\n    {\n      \"available\": true,\n      \"calories\": 540,\n      \"category\": \"Plats\",\n      \"description\": \"L\\u00e9gumes de saison, \\u00e9pices douces\",\n      \"id\": 22,\n      \"is_vegetarian\": true,\n      \"name\": \"Tajine L\\u00e9gumes\",\n      \"price\": 13.9,\n      \"restaurant_id\": 5,\n      \"stock\": 0\n    },\n    {\n      \"available\": true,\n      \"calories\": 760,\n      \"category\": \"Plats\",\n      \"description\": \"Poulet, citron confit, olives\",\n      \"id\": 21,\n      \"is_vegetarian\": false,\n      \"name\": \"Tajine Poulet Citron\",\n      \"price\": 15.9,\n      \"restaurant_id\": 5,\n      \"stock\": 100\n    }\n  ],\n  \"restaurant\": {\n    \"address\": \"7 boulevard Voltaire, Paris\",\n    \"category\": \"Marocain\",\n    \"delivery_fee\": 2.99,\n    \"delivery_time_min\": 40,\n    \"description\": \"Cuisine marocaine familiale et g\\u00e9n\\u00e9reuse.\",\n    \"id\": 5,\n    \"is_open\": true,\n    \"minimum_order\": 25.0,\n    \""
+  },
+  {
+   "req": "GET /api/restaurants/2/products",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/api/restaurants/2/products",
+   "body": "{\n  \"items\": [\n    {\n      \"available\": true,\n      \"calories\": 650,\n      \"category\": \"Bowls\",\n      \"description\": \"Poulet teriyaki, riz, l\\u00e9gumes\",\n      \"id\": 6,\n      \"is_vegetarian\": false,\n      \"name\": \"Chicken Teriyaki\",\n      \"price\": 13.5,\n      \"restaurant_id\": 2,\n      \"stock\": 100\n    },\n    {\n      \"available\": true,\n      \"calories\": 590,\n      \"category\": \"Bowls\",\n      \"description\": \"Saumon, avocat, riz vinaigr\\u00e9\",\n      \"id\": 7,\n      \"is_vegetarian\": false,\n      \"name\": \"Salmon Bowl\",\n      \"price\": 15.9,\n      \"restaurant_id\": 2,\n      \"stock\": -1\n    },\n    {\n      \"available\": true,\n      \"calories\": 520,\n      \"category\": \"Bowls\",\n      \"description\": \"Tofu grill\\u00e9, riz et l\\u00e9gumes\",\n      \"id\": 10,\n      \"is_vegetarian\": true,\n      \"name\": \"Tofu Bowl\",\n      \"price\": 12.9,\n      \"restaurant_id\": 2,\n      \"stock\": 100\n    },\n    {\n      \"available\": true,\n      \"calories\": 330,\n      \"category\": \"Entr\\u00e9es\",\n      \"description\": \"6 gyozas au poulet\",\n      \"id\": 8,\n      \"is_vegetarian\": false,\n      \"name\": \"Gyozas\",\n      \"price\": 6.9,\n      \"restaurant_id\": 2,\n      \"stock\": 0\n    },\n    {\n      \"available\": true,\n      \"calories\": 90,\n      \"category\": \"Entr\\u00e9es\",\n      \"description\": \"Soupe miso traditionnelle\",\n      \"id\": 9,\n      \"is_vegetarian\": true,\n      \"name\": \"Miso Soup\",\n      \"price\": 3.2,\n      \"restaurant_id\": 2,\n      \"stock\": 100\n    }\n  ],\n  \"restaurant\": {\n    \"address\": \"8 avenue de l'Op\\u00e9ra, Paris\""
+  },
+  {
+   "req": "POST /login",
+   "data": {
+    "email": "alice@example.com",
+    "password": "Password123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livrais"
+  },
+  {
+   "req": "POST /cart/add/6",
+   "data": {
+    "quantity": 3
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Chicken Teriyaki ajouté au panier. Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Ja"
+  },
+  {
+   "req": "POST /checkout",
+   "data": {
+    "confirm": "1",
+    "address_id": 1,
+    "payment_method": "card",
+    "coupon": "TOKYO30",
+    "customer_note": "QA"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/orders/12",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Commande confirmée ! ← Mes commandes Commande #12 confirmed Tokyo Bowl 12/10/2026 08:01 Chicken Teriyaki × 3 40.50 € Sous-total 40.50 € Livraison 3.49 € Réduction - 3.49 € Total 40.50 € Paiement paid · card Liv"
+  },
+  {
+   "req": "POST /login",
+   "data": {
+    "email": "alice@example.com",
+    "password": "Password123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livrais"
+  },
+  {
+   "req": "GET /api/orders/12",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/api/orders/12",
+   "body": "{\n  \"cash_received\": null,\n  \"change_due\": null,\n  \"created_at\": \"2026-10-12T08:01:04.934098\",\n  \"delivery_fee\": 3.49,\n  \"discount\": 3.49,\n  \"id\": 12,\n  \"items\": [\n    {\n      \"line_total\": 40.5,\n      \"product_id\": 6,\n      \"product_name\": \"Chicken Teriyaki\",\n      \"quantity\": 3,\n      \"unit_price\": 13.5\n    }\n  ],\n  \"payment_method\": \"card\",\n  \"payment_status\": \"paid\",\n  \"restaurant_id\": 2,\n  \"status\": \"confirmed\",\n  \"subtotal\": 40.5,\n  \"total\": 40.5\n}\n"
+  }
+ ]
+}

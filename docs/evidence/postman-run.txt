@@ -1,0 +1,63 @@
+npm notice run pipeline-nodejs-example@1.0.0 npx
+npm notice run newman run docs/quickorder-api.postman_collection.json --reporters cli,json --reporter-json-export docs/evidence/postman-run.json --color off
+(node:8984) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+newman
+
+QuickOrder API V3.1
+
+→ Health
+  GET http://127.0.0.1:5000/api/health [200 OK, 258B, 54ms]
+
+→ Restaurants
+  GET http://127.0.0.1:5000/api/restaurants [200 OK, 2.52kB, 33ms]
+
+→ Search restaurants
+  GET http://127.0.0.1:5000/api/restaurants?q=pizza&min_rating=4 [200 OK, 570B, 11ms]
+
+→ Restaurant products
+  GET http://127.0.0.1:5000/api/restaurants/1/products [200 OK, 1.98kB, 11ms]
+
+→ Vegetarian products
+  GET http://127.0.0.1:5000/api/restaurants/1/products?vegetarian=true [200 OK, 1.12kB, 9ms]
+
+→ Product detail
+  GET http://127.0.0.1:5000/api/products/1 [200 OK, 415B, 7ms]
+
+→ Validate coupon
+  POST http://127.0.0.1:5000/api/coupons/validate [200 OK, 256B, 9ms]
+
+→ My orders
+  GET http://127.0.0.1:5000/api/orders [200 OK, 936B, 17ms]
+
+→ Create order
+  POST http://127.0.0.1:5000/api/orders [201 CREATED, 641B, 30ms]
+
+→ Order detail
+  GET http://127.0.0.1:5000/api/orders/1 [200 OK, 781B, 9ms]
+
+→ Cancel order
+  POST http://127.0.0.1:5000/api/orders/1/cancel [409 CONFLICT, 253B, 8ms]
+
+→ Favorites
+  GET http://127.0.0.1:5000/api/favorites [200 OK, 197B, 8ms]
+
+┌─────────────────────────┬──────────────────┬──────────────────┐
+│                         │         executed │           failed │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│              iterations │                1 │                0 │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│                requests │               12 │                0 │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│            test-scripts │                0 │                0 │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│      prerequest-scripts │                0 │                0 │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│              assertions │                0 │                0 │
+├─────────────────────────┴──────────────────┴──────────────────┤
+│ total run duration: 1085ms                                    │
+├───────────────────────────────────────────────────────────────┤
+│ total data received: 7.86kB (approx)                          │
+├───────────────────────────────────────────────────────────────┤
+│ average response time: 17ms [min: 7ms, max: 54ms, s.d.: 13ms] │
+└───────────────────────────────────────────────────────────────┘

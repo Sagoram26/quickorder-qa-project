@@ -1,0 +1,14 @@
+{
+ "id": "TC-ERR-01",
+ "status": "Pass",
+ "obtained": "GET /api/restaurants sans clé → HTTP 401 {\n  \"error\": \"missing or invalid X-API-Key\",\n  \"hint\": \"Use Swagger > Authorize\"",
+ "trace": [
+  {
+   "req": "GET /api/restaurants",
+   "data": null,
+   "status": 401,
+   "final_url": "http://127.0.0.1:5000/api/restaurants",
+   "body": "{\n  \"error\": \"missing or invalid X-API-Key\",\n  \"hint\": \"Use Swagger > Authorize\"\n}\n"
+  }
+ ]
+}

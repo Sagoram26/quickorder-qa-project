@@ -1,0 +1,43 @@
+{
+ "id": "TC-NOM-07",
+ "status": "Pass",
+ "obtained": "Statut commande #2 après annulation: cancelled.",
+ "trace": [
+  {
+   "req": "POST /login",
+   "data": {
+    "email": "alice@example.com",
+    "password": "Password123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livrais"
+  },
+  {
+   "req": "POST /orders/2",
+   "data": {
+    "action": "cancel"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/orders/2",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Commande annulée. ← Mes commandes Commande #2 cancelled Burger Factory 12/10/2026 08:01 Classic Burger × 2 23.80 € Sous-total 23.80 € Livraison 2.99 € Réduction - 2.38 € Total 24.41 € Paiement paid · card Livra"
+  },
+  {
+   "req": "POST /login",
+   "data": {
+    "email": "alice@example.com",
+    "password": "Password123!"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil Alice Martin Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livrais"
+  },
+  {
+   "req": "GET /api/orders/2",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/api/orders/2",
+   "body": "{\n  \"cash_received\": null,\n  \"change_due\": null,\n  \"created_at\": \"2026-10-12T08:01:01.862727\",\n  \"delivery_fee\": 2.99,\n  \"discount\": 2.38,\n  \"id\": 2,\n  \"items\": [\n    {\n      \"line_total\": 23.8,\n      \"product_id\": 1,\n      \"product_name\": \"Classic Burger\",\n      \"quantity\": 2,\n      \"unit_price\": 11.9\n    }\n  ],\n  \"payment_method\": \"card\",\n  \"payment_status\": \"paid\",\n  \"restaurant_id\": 1,\n  \"status\": \"cancelled\",\n  \"subtotal\": 23.8,\n  \"total\": 24.41\n}\n"
+  }
+ ]
+}

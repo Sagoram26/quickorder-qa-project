@@ -1,0 +1,30 @@
+{
+ "id": "TC-ERR-05",
+ "status": "Pass",
+ "obtained": "items=[] → 400; produit inconnu → 400.",
+ "trace": [
+  {
+   "req": "POST /api/orders",
+   "data": {
+    "items": []
+   },
+   "status": 400,
+   "final_url": "http://127.0.0.1:5000/api/orders",
+   "body": "{\n  \"error\": \"items is required and must be a non-empty array\"\n}\n"
+  },
+  {
+   "req": "POST /api/orders",
+   "data": {
+    "items": [
+     {
+      "product_id": 99999,
+      "quantity": 1
+     }
+    ]
+   },
+   "status": 400,
+   "final_url": "http://127.0.0.1:5000/api/orders",
+   "body": "{\n  \"error\": \"one or more products do not exist\"\n}\n"
+  }
+ ]
+}

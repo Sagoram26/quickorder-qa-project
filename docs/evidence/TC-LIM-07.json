@@ -1,0 +1,61 @@
+{
+ "id": "TC-LIM-07",
+ "status": "Pass",
+ "obtained": "mdp 7 car. accepté=False, mdp 8 car. accepté=True, nom 1 car. accepté=False (attendu False/True/False).",
+ "trace": [
+  {
+   "req": "POST /register",
+   "data": {
+    "name": "QA",
+    "email": "lim07.3761384674895881282@example.com",
+    "password": "1234567"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/register",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Connexion Créer un compte Nom, email valide et mot de passe d&#39;au moins 8 caractères requis. Créer un compte Nom Email Mot de passe Créer mon compte QuickOrder · Application pédagogique Tests & qualité · API Swagger "
+  },
+  {
+   "req": "GET /profile/",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/login?next=%2Fprofile%2F",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Connexion Créer un compte Connectez-vous pour accéder à cette page. Connexion Email Mot de passe Se souvenir de moi Se connecter Compte démo : alice@example.com / Password123! QuickOrder · Application pédagogique Tests & qualité · API Swagger "
+  },
+  {
+   "req": "POST /register",
+   "data": {
+    "name": "QA",
+    "email": "lim07.2590597040376572464@example.com",
+    "password": "12345678"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/",
+   "body": " Restaurants · QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil QA Déconnexion Plateforme de livraison Commandez simplement. Restaurants, menus, coupons, paiement simulé et suivi de commande. Toutes les catégories Burgers Healthy Italien Japonais Marocain Mieux notés Livraison moins c"
+  },
+  {
+   "req": "GET /profile/",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/profile/",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Commandes Mon profil QA Déconnexion Mon profil Informations Nom Email Téléphone Enregistrer Favoris Aucun favori. Mes adresses Domicile , · Par défaut Ajouter une adresse Label Rue Code postal Ville Instructions Adresse par défaut Ajouter QuickOrder · Appl"
+  },
+  {
+   "req": "POST /register",
+   "data": {
+    "name": "Q",
+    "email": "lim07.8743266764428989828@example.com",
+    "password": "12345678"
+   },
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/register",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Connexion Créer un compte Nom, email valide et mot de passe d&#39;au moins 8 caractères requis. Créer un compte Nom Email Mot de passe Créer mon compte QuickOrder · Application pédagogique Tests & qualité · API Swagger "
+  },
+  {
+   "req": "GET /profile/",
+   "data": null,
+   "status": 200,
+   "final_url": "http://127.0.0.1:5000/login?next=%2Fprofile%2F",
+   "body": " QuickOrder 🍔 QuickOrder Restaurants Panier Connexion Créer un compte Connectez-vous pour accéder à cette page. Connexion Email Mot de passe Se souvenir de moi Se connecter Compte démo : alice@example.com / Password123! QuickOrder · Application pédagogique Tests & qualité · API Swagger "
+  }
+ ]
+}
