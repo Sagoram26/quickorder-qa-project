@@ -1,6 +1,6 @@
 # Tests utilisateurs - QuickOrder
 
-> **ATTENTION : ces retours sont des sessions simulées (personas) et non de vrais utilisateurs ; à remplacer par de vrais retours avant toute décision.**
+> **ATTENTION : DONNÉES SIMULÉES. Ces retours sont des sessions simulées (personas fictifs) et non de vrais utilisateurs. Les verbatims sont inventés. À remplacer par de vrais retours (kit : `docs/user-test-kit.md`) avant toute décision.**
 
 Les problèmes décrits sont tous rattachés à des bugs réellement prouvés (voir `docs/bug-reports/` et `docs/evidence/_results.json`). Les verbatims sont fictifs. La « fréquence » est celle observée dans la simulation (x/2 personas), pas une statistique.
 
@@ -11,7 +11,16 @@ Les problèmes décrits sont tous rattachés à des bugs réellement prouvés (v
 | P1 | Léa, 22 ans, étudiante, mobile-first | Smartphone, pressée, petit budget, utilise les codes promo et PayPal |
 | P2 | Marc, 45 ans, salarié, peu technophile | Ordinateur au bureau, paie en espèces, lit peu les messages, craint les erreurs |
 
-## Scénario A - Chercher un restaurant et filtrer par frais de livraison
+## Participation (simulée)
+
+| Persona | Scénario A | Scénario B | Scénario C | Observations |
+|---|---|---|---|---|
+| P1 Léa (simulée) | réalisé | réalisé | réalisé | A1, B1, B2, B6, C1, C2 |
+| P2 Marc (simulé) | réalisé | réalisé | réalisé | A2, A3, B3, B4, B5, C3, C4 |
+
+2 personas × 3 scénarios, conformément à la structure du brief §6, mais **sans participants réels**.
+
+## Scénario A (simulé) - Chercher un restaurant et filtrer par frais de livraison
 
 | # | Profil | Contexte | Problème | Fréquence | Impact | Verbatim | Hypothèse d'amélioration | Priorité |
 |---|--------|----------|----------|-----------|--------|----------|--------------------------|----------|
@@ -19,7 +28,7 @@ Les problèmes décrits sont tous rattachés à des bugs réellement prouvés (v
 | A2 | P2 | Cherche « pizza aux champignons », terme présent dans la description | La recherche ignore la description (BUG-014) | 1/2 | Moyen : il croit que le plat n'existe pas | « J'ai tapé champignons, rien. Donc ils n'en ont pas ? » | Étendre la recherche à nom + description + cuisine | Moyenne |
 | A3 | P2 | Ouvre un restaurant fermé depuis la liste | Le restaurant fermé reste commandable, aucun blocage visible (BUG-003) | 1/2 | Critique : commande jamais livrée | « C'est marqué fermé mais il me laisse ajouter au panier. » | Bloquer l'ajout et le checkout, griser la carte | Haute |
 
-## Scénario B - Commander avec coupon et payer (carte / PayPal / espèces)
+## Scénario B (simulé) - Commander avec coupon et payer (carte / PayPal / espèces)
 
 | # | Profil | Contexte | Problème | Fréquence | Impact | Verbatim | Hypothèse d'amélioration | Priorité |
 |---|--------|----------|----------|-----------|--------|----------|--------------------------|----------|
@@ -30,7 +39,7 @@ Les problèmes décrits sont tous rattachés à des bugs réellement prouvés (v
 | B5 | P2 | Laisse l'adresse vide | Commande acceptée sans adresse (BUG-015) | 1/2 | Moyen : livraison impossible | « Je n'ai pas rempli l'adresse et ça a marché. Où ils livrent ? » | Champ obligatoire + validation serveur | Moyenne |
 | B6 | P1 | Saisit un coupon invalide depuis l'appli (API) | Le coupon invalide est ignoré sans erreur (BUG-013) | 1/2 | Moyen : elle croit avoir une remise | « Mon code n'a rien fait et personne ne me dit pourquoi. » | Renvoyer 400 explicite | Moyenne |
 
-## Scénario C - Annuler puis recommander une commande
+## Scénario C (simulé) - Annuler puis recommander une commande
 
 | # | Profil | Contexte | Problème | Fréquence | Impact | Verbatim | Hypothèse d'amélioration | Priorité |
 |---|--------|----------|----------|-----------|--------|----------|--------------------------|----------|
